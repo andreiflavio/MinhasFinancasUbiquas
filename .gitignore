@@ -1,1 +1,8 @@
+*.pyc
 __pycache__
+.vscode/
+db.sqlite3
+.DS_Store
+Anotações.txt
+staticfiles/
+local_settings.py
