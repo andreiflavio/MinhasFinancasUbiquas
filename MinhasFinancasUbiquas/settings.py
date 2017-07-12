@@ -124,4 +124,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'MinhasFinancasUbiquas', 'media')
 MEDIA_URL = '/media/'
 
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'accounts:dashboard'
+LOGOUT_REDIRECT_URL = 'accounts:login'
+LOGOUT_URL = 'accounts:logout'
 AUTH_USER_MODEL = 'accounts.User'
