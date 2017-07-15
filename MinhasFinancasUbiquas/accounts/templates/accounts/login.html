@@ -29,9 +29,13 @@
   </head>
 
   <body>
-
     <div class="container">
       <form class="form-signin" method="post">
+        <!--{% if user.is_authenticated %}
+          <h1>Favor acessar seu e-mail para confirmar seu cadastro</h1>
+        {% else %}
+
+        {% endif %}-->
         <h2 class="form-signin-heading">Minhas Finanças Ubíquas</h2>
         {% csrf_token %}
         
@@ -40,11 +44,11 @@
         <br>
         <label for="id_password" class="sr-only">Password</label>
         <input type="password" name="password" id="id_password" class="form-control" placeholder="Senha" required>
-        <div class="checkbox">
+        <!--<div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Lembrar senha
           </label>
-        </div>
+        </div>-->
         <button type="submit" class="btn btn-primary">Logar</button>            
         <br>
         <br>

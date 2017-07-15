@@ -1,0 +1,25 @@
+<html>
+<head></head>
+<title></title>
+    <div>
+        <form class="" method="post">
+            {% csrf_token %}
+            <fieldset>
+                {{ form.non_field_errors }}
+
+                {% for field in form %}
+                <div class="">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+                <br>
+                {% endfor %}
+
+                <div class="">
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</html>

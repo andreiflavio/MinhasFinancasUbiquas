@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'MinhasFinancasUbiquas.accounts',
+    'MinhasFinancasUbiquas.core',
     'widget_tweaks',
 ]
 
@@ -129,3 +130,8 @@ LOGIN_REDIRECT_URL = 'accounts:dashboard'
 LOGOUT_REDIRECT_URL = 'accounts:login'
 LOGOUT_URL = 'accounts:logout'
 AUTH_USER_MODEL = 'accounts.User'
+
+try:
+    from MinhasFinancasUbiquas.local_settings import *
+except ImportError:
+    pass
