@@ -19,7 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^', include('MinhasFinancasUbiquas.accounts.urls', namespace='accounts')),
+    url(r'^', include('MinhasFinancasUbiquas.core.urls', namespace='core')),
+    url(r'^perfil/', include('MinhasFinancasUbiquas.accounts.urls', namespace='accounts')),    
     url(r'^admin/', admin.site.urls),
 ]
 
