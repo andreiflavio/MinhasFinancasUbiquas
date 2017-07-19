@@ -161,7 +161,7 @@
                         <a href="{% url 'core:index' %}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="{% url 'core:cadPessoa' %}"><i class="fa fa-address-card-o"></i> Pessoa</a>
+                        <a href="{% url 'core:pessoa_list' %}"><i class="fa fa-address-card-o"></i> Pessoa</a>
                     </li>
                     <!--<li>
                         <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
@@ -199,8 +199,10 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-        
-        {% block container %} {% endblock %}
+        <!-- /#page-wrapper -->
+        <div id="page-wrapper">
+            {% block container %} {% endblock %}
+        </div>
 
     </div>
     <!-- /#wrapper -->

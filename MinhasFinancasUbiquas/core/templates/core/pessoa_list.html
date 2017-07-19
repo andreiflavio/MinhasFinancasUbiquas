@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block container %}
+
+    <div class="panel panel-default">        
+        <div class="panel-body">
+            <div class="container nova-pessoa pull-right">
+                <button class="btn btn-success pull-right" alt="Adicionar novo" title="Adicionar novo">
+                    <a href="{% url 'core:pessoa_add' %}"><i class="fa fa-plus"></i></a></button>
+            </div> 
+            <div class="">
+                <table class="table table-bordered table-hover table-striped">        
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pessoa in object_list %}                    
+                            <tr>
+                                <td><a href="{% url 'core:pessoa_update' pk=pessoa.pk %}">{{ pessoa.id }}</a></td>
+                                <td><a href="{% url 'core:pessoa_update' pk=pessoa.pk %}">{{ pessoa.nome }}</a></td>
+                                <td class="btn-editar"><a href = "{% url 'core:pessoa_update' pk=pessoa.pk %}" class="editar">
+                                    <i class="fa fa-pencil" alt="editar" title="editar"></i></a></td>            
+
+                                <td class="btn-excluir"><a href="{% url 'core:pessoa_delete' pk=pessoa.pk %}" class="excluir">
+                                    <i class="fa fa-remove" alt="excluir" title="excluir"></i></a></td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <li>Nenhuma pessoa encontrado</li>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

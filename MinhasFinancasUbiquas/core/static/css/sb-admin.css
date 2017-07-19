@@ -225,3 +225,52 @@ ul.alert-dropdown {
 .panel-yellow > a:hover {
     color: #df8a13;
 }
+
+div.nova-pessoa button{
+	margin-right: 41px;
+}
+div.nova-pessoa button:hover{
+	background-color: green;
+}
+div.nova-pessoa button a{
+	color: white;
+}
+table{
+    margin: 0 auto;
+    width: 90%;
+}
+table tr:nth-child(even) {
+    background-color: #eee;
+}
+table tr:nth-child(odd) {
+   background-color:#fff;
+}
+td{
+    padding: 10px;
+}
+#main .tabela{
+	margin-top: 50px;
+}
+th{
+    font-size: 16px;
+    padding: 5px;
+    background-color: #003366;
+    color: #fff;
+}
+.btn-editar,
+.btn-excluir{
+    text-align: center;
+}
+.editar,
+.excluir{
+    font-size: 25px;
+    text-align: center
+}
+.excluir,
+.excluir:hover{
+	color: red;
+}
+.editar,
+.editar:hover{
+    color: #333;
+}
