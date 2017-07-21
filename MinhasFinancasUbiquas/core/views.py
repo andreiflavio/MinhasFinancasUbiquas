@@ -18,13 +18,17 @@ class PessoaListView(ListView):
 
 class PessoaCreate(CreateView):
     model = Pessoa
+    template_name = 'core/form_crud.html'
     fields = ['nome']
 
 class PessoaUpdate(UpdateView):
     model = Pessoa
+    template_name = 'core/form_crud.html'
     fields = ['nome']
     
 
 class PessoaDelete(DeleteView):
     model = Pessoa
+    template_name = 'core/confirm_delete.html'
     success_url = reverse_lazy('core:pessoa_list')
+    

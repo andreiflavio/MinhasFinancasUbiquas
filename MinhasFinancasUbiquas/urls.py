@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^', include('MinhasFinancasUbiquas.core.urls', namespace='core')),
+    url(r'^financas/', include('MinhasFinancasUbiquas.financas.urls', namespace='financas')),
     url(r'^perfil/', include('MinhasFinancasUbiquas.accounts.urls', namespace='accounts')),    
     url(r'^admin/', admin.site.urls),
 ]

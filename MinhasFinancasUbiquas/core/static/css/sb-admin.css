@@ -226,13 +226,13 @@ ul.alert-dropdown {
     color: #df8a13;
 }
 
-div.nova-pessoa button{
+div.novo-registro button{
 	margin-right: 41px;
 }
-div.nova-pessoa button:hover{
+div.novo-registro button:hover{
 	background-color: green;
 }
-div.nova-pessoa button a{
+div.novo-registro button a{
 	color: white;
 }
 table{

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block container %}
+
+    <div class="panel panel-default">   
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-flag fa-fw"></i> Cadastro de Classificações</h3>
+        </div>     
+        <div class="panel-body">
+             <div class="container novo-registro pull-right">
+                <button class="btn btn-success pull-right" alt="Adicionar novo" title="Adicionar novo">
+                    <a href="{% url 'financas:classificacao_add' %}"><i class="fa fa-plus"></i></a></button>
+            </div>
+            <div class="">
+                <table class="table table-bordered table-hover table-striped">        
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for classificacao in object_list %}                    
+                            <tr>
+                                <td><a href="{% url 'financas:classificacao_update' pk=classificacao.pk %}">{{ classificacao.id }}</a></td>
+                                <td><a href="{% url 'financas:classificacao_update' pk=classificacao.pk %}">{{ classificacao.nome }}</a></td>
+                                <td class="btn-editar"><a href = "{% url 'financas:classificacao_update' pk=classificacao.pk %}" class="editar">
+                                    <i class="fa fa-pencil" alt="editar" title="editar"></i></a></td>            
+
+                                <td class="btn-excluir"><a href="{% url 'financas:classificacao_delete' pk=classificacao.pk %}" class="excluir">
+                                    <i class="fa fa-remove" alt="excluir" title="excluir"></i></a></td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <li>Nenhuma classificação encontrado</li>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
