@@ -165,9 +165,18 @@
                         <a href="{% url 'core:pessoa_list' %}"><i class="fa fa-address-card-o"></i> Pessoa</a>
                     </li>
                     <li>
+                        <a href="{% url 'financas:conta_list' %}">
+                            <i class="fa fa-university"></i> Contas</a>
+                    </li> 
+                    <li>
                         <a href="{% url 'financas:classificacao_list' %}">
                             <i class="fa fa-flag" title="Cadastro das classificações do lançamento financeiro."></i> Classificação</a>
                     </li>
+                    <li>
+                        <a href="{% url 'financas:cartaocredito_list' %}">
+                            <i class="fa fa-credit-card"></i> Cartões de crédito</a>
+                    </li>                        
+                       
                     
                     <!--<li>
                         <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>

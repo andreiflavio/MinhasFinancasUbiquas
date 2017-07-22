@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'MinhasFinancasUbiquas.accounts',
     'MinhasFinancasUbiquas.core',
     'MinhasFinancasUbiquas.financas',
-    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
