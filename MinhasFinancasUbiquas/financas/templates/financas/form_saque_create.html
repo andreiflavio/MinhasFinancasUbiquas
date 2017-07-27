@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block container %}
+    <form enctype="multipart/form-data" action="" method="post"class="post-form" id="post_form" novalidate="">
+        {% csrf_token %}                             
+        {{ form.as_p }}
+        <button type="button" class="back btn btn-default" alt="Voltar" title="Voltar">                
+            <a href="{{ request.META.HTTP_REFERER }}"><i class="fa fa-chevron-left"></i>Voltar</a>
+        </button>
+        <button type="submit" name = "save" class="save btn btn-default">Salvar</button>                   
+    </form>
+
+    <br>
+    <p>Lançamentos Financeiros Vinculados</p>
+    {% for lancto in listaLanctos %}
+        <p>{{ lancto }}</p>
+    {% empty %}
+        <h2>
+            Não existem lançamentos financeiros vinculados a este saque.
+        </h2>
+    {% endfor %}
+{% endblock %}

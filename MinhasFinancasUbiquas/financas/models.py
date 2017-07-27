@@ -1,6 +1,7 @@
 from django.db import models
+from django.utils import timezone
 from django.core.urlresolvers import reverse
-from core.models import Pessoa
+from MinhasFinancasUbiquas.core.models import Pessoa
 
 # Documentação base para implementação deste model: https://docs.djangoproject.com/en/1.11/topics/db/models/
 class Classificacao(models.Model):
@@ -12,6 +13,14 @@ class Classificacao(models.Model):
 
     def get_absolute_url(self):
         return reverse('financas:classificacao_list')
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Classificação'
+        verbose_name_plural = 'Classificações'
+        ordering = ["pk"]
 
 class Conta(models.Model):
     """
@@ -25,6 +34,9 @@ class Conta(models.Model):
     def get_absolute_url(self):
         return reverse('financas:conta_list')
 
+    def __str__(self):
+        return self.nome    
+
 class CartaoCredito(models.Model):
     """
     Cadastro que visa facilitar o controle sobre despesas de cartão de crédito
@@ -32,9 +44,18 @@ class CartaoCredito(models.Model):
     nome = models.CharField("Descrição", max_length = 80)
     numero = models.CharField("Número do Cartão de Crédito", max_length = 80)
     observacao = models.TextField("Observação", default=" ", blank=True)
+    dia_fechamento_fatura = models.DateTimeField("Dia de fechamento da fatura", null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('financas:cartaocredito_list')
+
+    def __str__(self):
+        return self.nome
+
+    class Meta:
+        verbose_name = 'Cartão de Crédito'
+        verbose_name_plural = 'Cartões de Crédito'
+        ordering = ["numero"]
 
 class Saque(models.Model):
     """
@@ -42,15 +63,19 @@ class Saque(models.Model):
     usuário saca 120 reais, sendo que 60 reais são para pagar uma conta X, 30 conta Y e mais 30 para ficar na carteira. 
     Cada um destes valores será um lançamento financeiro dentro do sistema.
     """
-    descricao = models.CharField("Descrição", max_length = 50)    
+    descricao = models.CharField("Descrição", max_length = 50, default=" ")    
     conta = models.ForeignKey(Conta, null=True, blank=True)
     data_saque = models.DateTimeField("Data do saque")
+    valor_saque = models.DecimalField("Valor saque", max_digits=19, decimal_places=10, default=0)
     
-    def getListaLancamentosFinanceiros(self):
-        return LancamentoFinanceiro.Objects.filter(self.pk = saque.pk)
+    #def getListaLancamentosFinanceiros(pk):
+    #    return LancamentoFinanceiro.Objects.filter(saque.pk=pk)
 
     def get_absolute_url(self):
-        return reverse('financas:saques_list')
+        return reverse('financas:saque_list')
+
+    def __str__(self):
+        return str(self.data_saque) + " - " + self.conta.nome
 
 class LancamentoFinanceiro(models.Model):
     """
@@ -58,7 +83,8 @@ class LancamentoFinanceiro(models.Model):
     uma visão sobre como anda sua administração financeiras
     """
     TIPO_CHOICES = (('1', 'A Receber'), ('2', 'A Pagar'))
-
+    
+    
     pessoa = models.ForeignKey(Pessoa, null=True, blank=True)
     tipo = models.CharField(max_length=1, choices=TIPO_CHOICES)
     data_emissao = models.DateField("Data emissão")
@@ -66,8 +92,17 @@ class LancamentoFinanceiro(models.Model):
     saque = models.ForeignKey(Saque, null=True, blank=True)
     cartaoCredito = models.ForeignKey(CartaoCredito, null=True, blank=True)
     conta = models.ForeignKey(Conta, null=True, blank=True)    
-
+    valor = models.DecimalField("Valor", max_digits=19, decimal_places=10, default=0)
     data_pagto = models.DateField("Data pagamento", null=True, blank=True)
+    descricao = models.CharField("Descrição", max_length = 50, default=" ", null=True, blank=True) 
 
     def get_absolute_url(self):
         return reverse('financas:lancamentofinanceiro_list')
+
+    def __str__(self):
+        return str(self.pk) + " - " + str(self.valor)
+
+    class Meta:
+        verbose_name = 'Lançamento Financeiro'
+        verbose_name_plural = 'Lançamentos Financeiros'
+        ordering = ["pk"]

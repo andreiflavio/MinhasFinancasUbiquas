@@ -14,4 +14,8 @@ urlpatterns = [
     url(r'cartaocredito/add/$', views.CartaoCreditoCreate.as_view(), name='cartaocredito_add'),
     url(r'cartaocredito/(?P<pk>[0-9]+)/$', views.CartaoCreditoUpdate.as_view(), name='cartaocredito_update'),
     url(r'cartaocredito/(?P<pk>[0-9]+)/delete/$', views.CartaoCreditoDelete.as_view(), name='cartaocredito_delete'),
+    url(r'^saque/$', views.SaqueListView.as_view(), name='saque_list'),
+    url(r'saque/add/$', views.SaqueCreate, name='saque_add'),
+    url(r'saque/(?P<pk>[0-9]+)/$', views.SaqueUpdate, name='saque_update'),
+    url(r'saque/(?P<pk>[0-9]+)/delete/$', views.SaqueDelete.as_view(), name='saque_delete'),
 ]
