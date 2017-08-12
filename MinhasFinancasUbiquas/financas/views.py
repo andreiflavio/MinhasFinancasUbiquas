@@ -6,6 +6,7 @@ from django.forms import modelformset_factory, inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from .models import Classificacao, Conta, CartaoCredito, Saque, LancamentoFinanceiro
 from .forms import SaqueForm
+from .rules import *
 
 class ClassificacaoListView(ListView):
     model = Classificacao
@@ -89,7 +90,14 @@ class SaqueUpdate(UpdateView, pk):
 class SaqueDelete(DeleteView):
     model = Saque
     template_name = 'core/confirm_delete.html'
-    success_url = reverse_lazy('financas:saque_list')
+    if request.method == 'POST':
+        saqueValidate = SaqueRules(model)
+        try:
+            saqueValidate.ValidateDelete()
+            success_url = reverse_lazy('financas:saque_list')
+        except:
+            #Subir mensagem de validação
+            pass
 
 def SaqueCreate(request):
     if request.method == 'POST':

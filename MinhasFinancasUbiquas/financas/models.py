@@ -77,19 +77,6 @@ class Saque(models.Model):
     def __str__(self):
         return str(self.data_saque) + " - " + self.conta.nome
 
-    def save(self, *args, **kwargs):
-       # Se valor do saque for diferente do valor total de lançamentos vinculados ao saque, subir exceção 
-       # totalLanctos = LancamentoFinanceiro.Objects.Agre     
-        super(Saque, self).save(*args, **kwargs)
-
-
-    def delete(self, using=None, keep_parents=False):
-        lanctosPagos = LancamentoFinanceiro.Objects.filter(status = STATUS_CHOICES.Pago)
-        if lanctosPagos is None:
-            return super(Saque, self).delete(using, keep_parents)
-        else:
-            return django.http.HttpResponseBadRequest("Saque não pode ser apagado pois possui lançamentos financeiros pagos.") 
-
 class LancamentoFinanceiro(models.Model):
     """
     Tabela base do sistema que representa os lançamentos financeiros que permitem ao usuário
