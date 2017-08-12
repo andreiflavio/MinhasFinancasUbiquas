@@ -44,7 +44,7 @@ class CartaoCredito(models.Model):
     nome = models.CharField("Descrição", max_length = 80)
     numero = models.CharField("Número do Cartão de Crédito", max_length = 80)
     observacao = models.TextField("Observação", default=" ", blank=True)
-    dia_fechamento_fatura = models.DateTimeField("Dia de fechamento da fatura", null=True, blank=True)
+    dia_fechamento_fatura = models.IntegerField("Dia de fechamento da fatura", null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('financas:cartaocredito_list')
@@ -77,12 +77,26 @@ class Saque(models.Model):
     def __str__(self):
         return str(self.data_saque) + " - " + self.conta.nome
 
+    def save(self, *args, **kwargs):
+       # Se valor do saque for diferente do valor total de lançamentos vinculados ao saque, subir exceção 
+       # totalLanctos = LancamentoFinanceiro.Objects.Agre     
+        super(Saque, self).save(*args, **kwargs)
+
+
+    def delete(self, using=None, keep_parents=False):
+        lanctosPagos = LancamentoFinanceiro.Objects.filter(status = STATUS_CHOICES.Pago)
+        if lanctosPagos is None:
+            return super(Saque, self).delete(using, keep_parents)
+        else:
+            return django.http.HttpResponseBadRequest("Saque não pode ser apagado pois possui lançamentos financeiros pagos.") 
+
 class LancamentoFinanceiro(models.Model):
     """
     Tabela base do sistema que representa os lançamentos financeiros que permitem ao usuário
     uma visão sobre como anda sua administração financeiras
     """
     TIPO_CHOICES = (('1', 'A Receber'), ('2', 'A Pagar'))
+    STATUS_CHOICES = (('0', 'Não Pago'), ('1', 'Pago'))
     
     
     pessoa = models.ForeignKey(Pessoa, null=True, blank=True)
@@ -94,7 +108,8 @@ class LancamentoFinanceiro(models.Model):
     conta = models.ForeignKey(Conta, null=True, blank=True)    
     valor = models.DecimalField("Valor", max_digits=19, decimal_places=10, default=0)
     data_pagto = models.DateField("Data pagamento", null=True, blank=True)
-    descricao = models.CharField("Descrição", max_length = 50, default=" ", null=True, blank=True) 
+    descricao = models.CharField("Descrição", max_length = 50, default=" ", null=True, blank=True)
+    status = models.CharField(max_length=1, choices = STATUS_CHOICES, default="0 ", null=True, blank=True) 
 
     def get_absolute_url(self):
         return reverse('financas:lancamentofinanceiro_list')

@@ -10,3 +10,8 @@ def generate_hash_key(salt, random_str_size=5):
     random_str = random_key(random_str_size)
     text = random_str + salt
     return hashlib.sha224(text.encode('utf-8')).hexdigest()
+
+"""
+Gerador de slug: Fazer essa implementação aqui:
+https://www.youtube.com/watch?v=3ILxdD9w3nQ
+"""

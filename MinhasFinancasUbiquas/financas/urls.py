@@ -18,4 +18,8 @@ urlpatterns = [
     url(r'saque/add/$', views.SaqueCreate, name='saque_add'),
     url(r'saque/(?P<pk>[0-9]+)/$', views.SaqueUpdate, name='saque_update'),
     url(r'saque/(?P<pk>[0-9]+)/delete/$', views.SaqueDelete.as_view(), name='saque_delete'),
+    url(r'^lancamentoFinanceiro/$', views.LancamentoFinanceiroListView.as_view(), name='lancamentofinanceiro_list'),
+    url(r'lancamentoFinanceiro/add/$', views.LancamentoFinanceiroCreate.as_view(), name='lancamentoFinanceiro_add'),
+    url(r'lancamentoFinanceiro/(?P<pk>[0-9]+)/$', views.LancamentoFinanceiroUpdate.as_view(), name='lancamentoFinanceiro_update'),
+    url(r'lancamentoFinanceiro/(?P<pk>[0-9]+)/delete/$', views.LancamentoFinanceiroDelete.as_view(), name='lancamentoFinanceiro_delete'),
 ]

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block container %}
+
+    <div class="panel panel-default">   
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-usd fa-fw"></i> Cadastro de Lançamentos Financeiros</h3>
+        </div>     
+        <div class="panel-body">
+             <div class="container novo-registro pull-right">
+                <button class="btn btn-success pull-right" alt="Adicionar novo" title="Adicionar novo">
+                    <a href="{% url 'financas:lancamentoFinanceiro_add' %}"><i class="fa fa-plus"></i></a></button>
+            </div>
+            <div class="">
+                <table class="table table-bordered table-hover table-striped">        
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for lancamentoFinanceiro in object_list %}                    
+                            <tr>
+                                <td><a href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}">{{ lancamentoFinanceiro.id }}</a></td>
+                                <td><a href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}">{{ lancamentoFinanceiro.descricao }}</a></td>
+                                <td class="btn-editar"><a href = "{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}" class="editar">
+                                    <i class="fa fa-pencil" alt="editar" title="editar"></i></a></td>            
+
+                                <td class="btn-excluir"><a href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}" class="excluir">
+                                    <i class="fa fa-remove" alt="excluir" title="excluir"></i></a></td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <li>Nenhuma lançamento encontrado</li>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

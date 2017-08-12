@@ -114,3 +114,26 @@ def SaqueUpdate(request, pk):
     context['listaLanctos'] = LancamentoFinanceiro.objects.filter(saque = pk)
     context['form'] = form
     return render(request, 'financas/form_saque_create.html', context)
+
+class LancamentoFinanceiroListView(ListView):
+    model = LancamentoFinanceiro
+
+    def get_queryset(self, **kwargs):
+        return LancamentoFinanceiro.objects.all()
+
+class LancamentoFinanceiroCreate(CreateView):
+    model = LancamentoFinanceiro
+    template_name = 'core/form_crud.html'
+    fields = ['pessoa', 'tipo', 'status', 'descricao', 'data_emissao', 'classificacao', 'saque', 'cartaoCredito', 'conta', 
+        'valor', 'data_pagto', ]
+
+class LancamentoFinanceiroUpdate(UpdateView):
+    model = LancamentoFinanceiro
+    template_name = 'core/form_crud.html'
+    fields = ['pessoa', 'tipo', 'status', 'descricao', 'data_emissao', 'classificacao', 'saque', 'cartaoCredito', 'conta', 
+        'valor', 'data_pagto', ]
+
+class LancamentoFinanceiroDelete(DeleteView):
+    model = LancamentoFinanceiro
+    template_name = 'core/confirm_delete.html'
+    success_url = reverse_lazy('financas:lancamentofinanceiro_list')
