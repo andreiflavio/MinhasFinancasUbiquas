@@ -19,6 +19,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Nome</th>
+                            <th>Valor</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,6 +27,7 @@
                             <tr>
                                 <td><a href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}">{{ lancamentoFinanceiro.id }}</a></td>
                                 <td><a href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}">{{ lancamentoFinanceiro.descricao }}</a></td>
+                                <td><a href="#">{{ lancamentoFinanceiro.valor }}</a></td>
                                 <td class="btn-editar"><a href = "{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}" class="editar">
                                     <i class="fa fa-pencil" alt="editar" title="editar"></i></a></td>            
 

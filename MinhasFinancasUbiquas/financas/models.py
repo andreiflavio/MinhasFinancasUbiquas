@@ -85,6 +85,12 @@ def beforeDelete(instance, **kwargs):
 
 models.signals.pre_delete.connect(beforeDelete, sender=Saque)
 
+def beforeSave(instance, **kwargs):
+    listaLanctosPagto = LancamentoFinanceiro.objects.filter(saque = instance.pk)
+    beforeSaveSaque(instance, listaLanctosPagto)
+
+models.signals.post_save.connect(beforeSave, sender=Saque)
+
 class LancamentoFinanceiro(models.Model):
     """
     Tabela base do sistema que representa os lançamentos financeiros que permitem ao usuário

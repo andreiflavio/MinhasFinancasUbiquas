@@ -23,7 +23,7 @@
                     <tbody>
                         {% for saque in object_list %}                    
                             <tr>
-                                <td><a href="{% url 'financas:saque_update' pk=saque.pk %}">{{saque.data_saque|date:"SHORT_DATETIME_FORMAT" }} - {{ saque.descricao }} - {{ saque.conta.nome }} </a></td>
+                                <td><a href="{% url 'financas:saque_update' pk=saque.pk %}">{{saque.data_saque|date:"SHORT_DATETIME_FORMAT" }} - {{ saque.descricao }} - {{ saque.conta.nome }} - {{ saque.valor_saque }} </a></td>
                                 
                                 <td class="btn-editar"><a href = "{% url 'financas:saque_update' pk=saque.pk %}" class="editar">
                                     <i class="fa fa-pencil" alt="editar" title="editar"></i></a></td>            
