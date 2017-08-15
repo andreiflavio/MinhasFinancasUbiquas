@@ -1,24 +1,10 @@
-from django.core.urlresolvers import reverse
-from .models import LancamentoFinanceiro
+# Regras de negócio cadastro de Saque
+def beforeDeleteSaque(model, listaLanctosPagos):
+    if (listaLanctosPagos.count() > 0):
+        raise Exception("Saque não pode ser apagado pois possui lançamentos financeiros vinculados a ele.") 
 
-#Estudar sobre classes abstratas em python
-#Estudar sobre validações no deleteview
-#Estudar Exceptions no Django
-#Estudar sobre Mixins
-class Rules():
-    def ValidateDelete(model):
-        pass
-    
-    def ValidateSave(model):
-        pass
+def doBeforeSave(sender, **kwargs):
+    # Se valor do saque for diferente do valor total de lançamentos vinculados ao saque, subir exceção 
+    # totalLanctos = LancamentoFinanceiro.Objects.Agre  
+    pass
 
-class SaqueRules(Rules):
-    def ValidateDelete(self, model):
-        lanctosPagos = LancamentoFinanceiro.Objects.filter(status = STATUS_CHOICES.Pago)
-        if not lanctosPagos is None:
-            return django.http.HttpResponseBadRequest("Saque não pode ser apagado pois possui lançamentos financeiros pagos.") 
-
-    def ValidateSave(self, model):
-        # Se valor do saque for diferente do valor total de lançamentos vinculados ao saque, subir exceção 
-        # totalLanctos = LancamentoFinanceiro.Objects.Agre  
-        pass

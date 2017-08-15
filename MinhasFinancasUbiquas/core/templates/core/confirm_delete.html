@@ -4,7 +4,7 @@
 
 {% block container %}
     <form action="" method="post">{% csrf_token %}
-        <p>Deseja apagar este registro? "{{ object.nome }}"?</p>
+        <p>Deseja apagar este registro? "{{ object }}"?</p>
         <input type="submit" value="Confirm" />
     </form>
 

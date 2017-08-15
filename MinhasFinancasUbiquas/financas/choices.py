@@ -1,0 +1,7 @@
+ARECEBER = 1
+APAGAR = 2
+TIPO_CHOICES = ((ARECEBER, 'A Receber'), (APAGAR, 'A Pagar'))
+
+NAOPAGO = 0
+PAGO = 1
+STATUS_CHOICES = ((NAOPAGO, 'Não Pago'), (PAGO, 'Pago'))

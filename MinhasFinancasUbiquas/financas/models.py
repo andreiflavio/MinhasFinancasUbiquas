@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from MinhasFinancasUbiquas.core.models import Pessoa
+from .rules import *
+from .choices import *
 
 # Documentação base para implementação deste model: https://docs.djangoproject.com/en/1.11/topics/db/models/
 class Classificacao(models.Model):
@@ -75,17 +77,19 @@ class Saque(models.Model):
         return reverse('financas:saque_list')
 
     def __str__(self):
-        return str(self.data_saque) + " - " + self.conta.nome
+        return "Saque feito em " + str(self.data_saque) + " - " + self.conta.nome
+
+def beforeDelete(instance, **kwargs):
+    listaLanctosPagto = LancamentoFinanceiro.objects.filter(saque = instance.pk)
+    beforeDeleteSaque(instance, listaLanctosPagto)
+
+models.signals.pre_delete.connect(beforeDelete, sender=Saque)
 
 class LancamentoFinanceiro(models.Model):
     """
     Tabela base do sistema que representa os lançamentos financeiros que permitem ao usuário
     uma visão sobre como anda sua administração financeiras
-    """
-    TIPO_CHOICES = (('1', 'A Receber'), ('2', 'A Pagar'))
-    STATUS_CHOICES = (('0', 'Não Pago'), ('1', 'Pago'))
-    
-    
+    """            
     pessoa = models.ForeignKey(Pessoa, null=True, blank=True)
     tipo = models.CharField(max_length=1, choices=TIPO_CHOICES)
     data_emissao = models.DateField("Data emissão")
