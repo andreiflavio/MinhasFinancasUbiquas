@@ -253,9 +253,7 @@ td{
 }
 th{
     font-size: 16px;
-    padding: 5px;
-    background-color: #003366;
-    color: #fff;
+    padding: 5px;    
 }
 .btn-editar,
 .btn-excluir{

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'MinhasFinancasUbiquas.accounts',
     'MinhasFinancasUbiquas.core',
     'MinhasFinancasUbiquas.financas',

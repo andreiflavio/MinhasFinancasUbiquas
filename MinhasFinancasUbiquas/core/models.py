@@ -7,3 +7,6 @@ class Pessoa(models.Model):
 
     def get_absolute_url(self):
         return reverse('core:pessoa_list')
+
+    def __str__(self):
+        return self.nome

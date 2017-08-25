@@ -2,47 +2,75 @@
 
 {% load static %}
 
-{% block container %}
+{% block container %}      
+    <div id="main" class="container-fluid" style="margin-top: 50px">
 
-    <div class="panel panel-default">   
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-usd fa-fw"></i> Cadastro de Lançamentos Financeiros</h3>
-        </div>     
-        <div class="panel-body">
-             <div class="container novo-registro pull-right">
-                <button class="btn btn-success pull-right" alt="Adicionar novo" title="Adicionar novo">
-                    <a href="{% url 'financas:lancamentoFinanceiro_add' %}"><i class="fa fa-plus"></i></a></button>
+        <div id="top" class="row">
+            <div class="col-sm-3">
+                
             </div>
-            <div class="">
-                <table class="table table-bordered table-hover table-striped">        
-                    <thead>
+
+            <div class="col-sm-6">
+                <form class="input-group h2" action="." method="get">                    
+                    <input name="data[search]" class="form-control" id="search" type="text" placeholder="Pesquisar Lançamentos Financeiros">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>                    
+                </form>                
+            </div>
+            
+            <div class="col-sm-3">
+                <a class="btn btn-success pull-right h2" href="{% url 'financas:lancamentoFinanceiro_add' %}" 
+                        alt="Adicionar novo" title="Adicionar novo">Novo</a> 
+            </div>
+        </div> <!-- /#top -->
+
+
+        <hr />
+        <div id="list" class="row">
+        
+        <div class="table-responsive col-md-12">
+            <table class="table table-striped" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lancamentoFinanceiro in object_list %}                    
                         <tr>
-                            <th>Id</th>
-                            <th>Nome</th>
-                            <th>Valor</th>
+                            <td>{{ lancamentoFinanceiro.id }}</a></td>
+                            <td>{{ lancamentoFinanceiro.descricao }}</a></td>
+                            <td>{{ lancamentoFinanceiro.valor }}</a></td>
+                            <td><a class="btn btn-warning btn-xs" href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}">Editar</a>
+                                <a class="btn btn-danger btn-xs"  href="{% url 'financas:lancamentoFinanceiro_delete' pk=lancamentoFinanceiro.pk %}" >Excluir</a></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for lancamentoFinanceiro in object_list %}                    
-                            <tr>
-                                <td><a href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}">{{ lancamentoFinanceiro.id }}</a></td>
-                                <td><a href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}">{{ lancamentoFinanceiro.descricao }}</a></td>
-                                <td><a href="#">{{ lancamentoFinanceiro.valor }}</a></td>
-                                <td class="btn-editar"><a href = "{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}" class="editar">
-                                    <i class="fa fa-pencil" alt="editar" title="editar"></i></a></td>            
-
-                                <td class="btn-excluir"><a href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}" class="excluir">
-                                    <i class="fa fa-remove" alt="excluir" title="excluir"></i></a></td>
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <li>Nenhuma lançamento encontrado</li>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                    {% empty %}
+                        <tr>
+                            <li>Nenhuma lançamento encontrado</li>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-    </div>
-
+        
+        </div> <!-- /#list -->
+        
+        <div id="bottom" class="row">
+            <div class="col-md-12">
+                <ul class="pagination">
+                    <li class="disabled"><a>&lt; Anterior</a></li>
+                    <li class="disabled"><a>1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li class="next"><a href="#" rel="next">Próximo &gt;</a></li>
+                </ul><!-- /.pagination -->
+            </div>
+        </div> <!-- /#bottom -->
+    </div> <!-- /#main -->      
 {% endblock %}

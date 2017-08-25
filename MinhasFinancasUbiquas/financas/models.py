@@ -112,7 +112,7 @@ class LancamentoFinanceiro(models.Model):
         return reverse('financas:lancamentofinanceiro_list')
 
     def __str__(self):
-        return str(self.pk) + " - " + str(self.valor)
+        return str(self.pk) + "." + self.descricao + " - " + str(self.valor)
 
     class Meta:
         verbose_name = 'Lançamento Financeiro'

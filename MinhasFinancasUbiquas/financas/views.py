@@ -119,7 +119,12 @@ class LancamentoFinanceiroListView(ListView):
     model = LancamentoFinanceiro
 
     def get_queryset(self, **kwargs):
-        return LancamentoFinanceiro.objects.all()
+        var_get_search = self.request.GET.get('search')
+        if var_get_search is not None:
+            lanctos = LancamentoFinanceiro.filter(descricao__icontains=var_get_search)
+        else:
+            lanctos = LancamentoFinanceiro.objects.all()
+        return lanctos
 
 class LancamentoFinanceiroCreate(CreateView):
     model = LancamentoFinanceiro
