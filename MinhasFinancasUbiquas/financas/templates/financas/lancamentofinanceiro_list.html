@@ -35,8 +35,10 @@
             <table class="table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Data</th>
                         <th>Descrição</th>
+                        <th>Classificação</th>
+                        <th>Conta</th>
                         <th>Valor</th>
                         <th></th>
                     </tr>
@@ -44,16 +46,18 @@
                 <tbody>
                     {% for lancamentoFinanceiro in object_list %}                    
                         <tr>
-                            <td>{{ lancamentoFinanceiro.id }}</a></td>
+                            <td>{{ lancamentoFinanceiro.data }}</a></td>
                             <td>{{ lancamentoFinanceiro.descricao }}</a></td>
+                            <td>{{ lancamentoFinanceiro.classificacao }}</a></td>
+                            <td>{{ lancamentoFinanceiro.conta }}</a></td>
                             <td>{{ lancamentoFinanceiro.valor }}</a></td>
                             <td><a class="btn btn-warning btn-xs" href="{% url 'financas:lancamentoFinanceiro_update' pk=lancamentoFinanceiro.pk %}">Editar</a>
                                 <a class="btn btn-danger btn-xs"  href="{% url 'financas:lancamentoFinanceiro_delete' pk=lancamentoFinanceiro.pk %}" >Excluir</a></td>
                         </tr>
-                    {% empty %}
-                        <tr>
-                            <li>Nenhuma lançamento encontrado</li>
-                        </tr>
+                        {% empty %}
+                            <tr>
+                                <li>Nenhuma lançamento encontrado</li>
+                            </tr>
                     {% endfor %}
                 </tbody>
             </table>

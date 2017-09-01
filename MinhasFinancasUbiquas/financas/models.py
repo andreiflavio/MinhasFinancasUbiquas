@@ -49,6 +49,7 @@ class CartaoCredito(models.Model):
     numero = models.CharField("Número do Cartão de Crédito", max_length = 80)
     observacao = models.TextField("Observação", default=" ", blank=True)
     dia_fechamento_fatura = models.IntegerField("Dia de fechamento da fatura", null=True, blank=True)
+    dia_vencimento_fatura = models.IntegerField("Dia de pagamento da fatura", null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('financas:cartaocredito_list')
@@ -61,54 +62,21 @@ class CartaoCredito(models.Model):
         verbose_name_plural = 'Cartões de Crédito'
         ordering = ["numero"]
 
-class Saque(models.Model):
-    """
-    Cadastro onde usuário vai poder registrar o que foi feito com valor sacado em algum momento. Exemplo:
-    usuário saca 120 reais, sendo que 60 reais são para pagar uma conta X, 30 conta Y e mais 30 para ficar na carteira. 
-    Cada um destes valores será um lançamento financeiro dentro do sistema.
-    """
-    descricao = models.CharField("Descrição", max_length = 50, default=" ")    
-    conta = models.ForeignKey(Conta, null=True, blank=True)
-    data_saque = models.DateTimeField("Data do saque")
-    valor_saque = models.DecimalField("Valor saque", max_digits=19, decimal_places=10, default=0)
-    
-    #def getListaLancamentosFinanceiros(pk):
-    #    return LancamentoFinanceiro.Objects.filter(saque.pk=pk)
-
-    def get_absolute_url(self):
-        return reverse('financas:saque_list')
-
-    def __str__(self):
-        return "Saque feito em " + str(self.data_saque) + " - " + self.conta.nome
-
-def beforeDelete(instance, **kwargs):
-    listaLanctosPagto = LancamentoFinanceiro.objects.filter(saque = instance.pk)
-    beforeDeleteSaque(instance, listaLanctosPagto)
-
-models.signals.pre_delete.connect(beforeDelete, sender=Saque)
-
-def beforeSave(instance, **kwargs):
-    listaLanctosPagto = LancamentoFinanceiro.objects.filter(saque = instance.pk)
-    beforeSaveSaque(instance, listaLanctosPagto)
-
-models.signals.post_save.connect(beforeSave, sender=Saque)
-
 class LancamentoFinanceiro(models.Model):
     """
     Tabela base do sistema que representa os lançamentos financeiros que permitem ao usuário
     uma visão sobre como anda sua administração financeiras
     """            
-    pessoa = models.ForeignKey(Pessoa, null=True, blank=True)
-    tipo = models.CharField(max_length=1, choices=TIPO_CHOICES)
-    data_emissao = models.DateField("Data emissão")
-    classificacao = models.ForeignKey(Classificacao, null=True, blank=True)
-    saque = models.ForeignKey(Saque, null=True, blank=True)
-    cartaoCredito = models.ForeignKey(CartaoCredito, null=True, blank=True)
-    conta = models.ForeignKey(Conta, null=True, blank=True)    
-    valor = models.DecimalField("Valor", max_digits=19, decimal_places=10, default=0)
-    data_pagto = models.DateField("Data pagamento", null=True, blank=True)
     descricao = models.CharField("Descrição", max_length = 50, default=" ", null=True, blank=True)
-    status = models.CharField(max_length=1, choices = STATUS_CHOICES, default="0 ", null=True, blank=True) 
+    data = models.DateField("Data")
+    valor = models.DecimalField("Valor", max_digits=19, decimal_places=10, default=0)
+    status = models.IntegerField("Status", choices = STATUS_CHOICES, default="1", null=False, blank=True) 
+    tipo = models.IntegerField("Tipo", choices=TIPO_CHOICES, null=False, blank=True)    
+    classificacao = models.ForeignKey(Classificacao, null=True, blank=True)
+    conta = models.ForeignKey(Conta, null=True, blank=True) 
+    cartaoCredito = models.ForeignKey(CartaoCredito, null=True, blank=True)
+    observacao = models.TextField("Informações adicionais", null=True, blank=True)
+                    
 
     def get_absolute_url(self):
         return reverse('financas:lancamentofinanceiro_list')

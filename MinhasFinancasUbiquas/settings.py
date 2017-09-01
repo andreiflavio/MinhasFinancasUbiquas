@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+USE_THOUSAND_SEPARATOR = True
+
+
+DATE_FORMAT = 'd/m/Y'
+
 
 # Application definition
 
