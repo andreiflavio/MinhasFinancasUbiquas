@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'widget_tweaks',
     'MinhasFinancasUbiquas.accounts',
     'MinhasFinancasUbiquas.core',
     'MinhasFinancasUbiquas.financas',
@@ -131,6 +130,8 @@ LOGIN_REDIRECT_URL = 'accounts:dashboard'
 LOGOUT_REDIRECT_URL = 'accounts:login'
 LOGOUT_URL = 'accounts:logout'
 AUTH_USER_MODEL = 'accounts.User'
+
+DEFAULT_CHARSET = 'utf-8'
 
 try:
     from MinhasFinancasUbiquas.local_settings import *

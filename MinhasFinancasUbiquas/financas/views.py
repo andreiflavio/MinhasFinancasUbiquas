@@ -118,13 +118,9 @@ def SaqueUpdate(request, pk):
 class LancamentoFinanceiroListView(ListView):
     model = LancamentoFinanceiro
 
-    def get_queryset(self, **kwargs):
-        var_get_search = self.request.GET.get('search')
-        if var_get_search is not None:
-            lanctos = LancamentoFinanceiro.filter(descricao__icontains=var_get_search)
-        else:
-            lanctos = LancamentoFinanceiro.objects.all()
-        return lanctos
+    def get_queryset(self, **kwargs):           
+        var_get_search = self.request.GET.get('search_box')
+        return LancamentoFinanceiro.getLanctos(var_get_search)
 
 class LancamentoFinanceiroCreate(CreateView):
     model = LancamentoFinanceiro

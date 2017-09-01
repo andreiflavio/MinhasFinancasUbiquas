@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from MinhasFinancasUbiquas.core.models import Pessoa
@@ -9,7 +10,8 @@ from .choices import *
 class Classificacao(models.Model):
     """
     Neste cadastro serão definidos como usuário deseja classificar seus lançamentos financeiros. Exemplo: 
-    Gastos Férias, Namoro, Passeios, Gastos Essenciais, Gastos Supérfluos, entre outras categorias que o usuário deseja.
+    Gastos Férias, Namoro, Passeios, Gastos Essenciais, Gastos Supérfluos, entre outras categorias que 
+    o usuário deseja.
     """
     nome = models.CharField("Nome", max_length = 80)
 
@@ -113,6 +115,15 @@ class LancamentoFinanceiro(models.Model):
 
     def __str__(self):
         return str(self.pk) + "." + self.descricao + " - " + str(self.valor)
+
+    def getLanctos(valueSearch):
+        ##https://medium.com/@csantosmachado/compondo-querysets-no-django-utilizando-objetos-q-c88bc3f65031
+        if valueSearch is not None:
+            lanctos = LancamentoFinanceiro.objects.filter(Q(descricao__icontains=valueSearch))
+        else:
+            lanctos = LancamentoFinanceiro.objects.all()
+        return lanctos
+        
 
     class Meta:
         verbose_name = 'Lançamento Financeiro'
