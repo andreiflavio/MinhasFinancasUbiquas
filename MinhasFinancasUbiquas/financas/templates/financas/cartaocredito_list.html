@@ -1,28 +1,71 @@
-{% extends "listView.html" %}
+{% extends "base.html" %}
 
-{% block listView %}  
+{% load static %}
 
-    <table class="table table-striped" cellspacing="0" cellpadding="0">        
-        <thead>
-            <tr>
-                <th>Número</th>
-                <th>Descrição</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for cartaocredito in object_list %}                    
-                <tr>
-                    <td><a href="{% url 'financas:cartaocredito_update' pk=cartaocredito.pk %}">{{ cartaocredito.numero }}</a></td>
-                    <td><a href="{% url 'financas:cartaocredito_update' pk=cartaocredito.pk %}">{{ cartaocredito.nome }}</a></td>
-                    <td><a class="btn btn-warning btn-xs" href="{% url 'financas:cartaocredito_update' pk=cartaocredito.pk %}">Editar</a>
-                        <a class="btn btn-danger btn-xs"  href="{% url 'financas:cartaocredito_delete' pk=cartaocredito.pk %}" >Excluir</a></td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <li>Nenhum Cartão de Crédito Cadastrado</li>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>  
+{% block container %}      
+    <div id="main" class="container-fluid" style="margin-top: 50px">
 
+        <div id="top" class="row">
+            <div class="col-sm-3">
+                
+            </div>
+
+            <div class="col-sm-6">
+                <form class="input-group h2" action="." method="get">                    
+                    <input name="search_box" class="form-control" id="search_box" type="text" placeholder="Pesquisar">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>                    
+                </form>              
+            </div>
+            
+            <div class="col-sm-3">
+                <a class="btn btn-success pull-right h2" href="{% url 'financas:classificacao_add' %}" 
+                        alt="Adicionar novo" title="Adicionar novo">Novo</a> 
+            </div>
+        </div> <!-- /#top -->
+
+
+        <hr />
+        <div id="list" class="row">
+            <div class="table-responsive col-md-12">   
+                <table class="table table-striped" cellspacing="0" cellpadding="0">        
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cartaocredito in object_list %}                    
+                            <tr>
+                                <td><a href="{% url 'financas:cartaocredito_update' pk=cartaocredito.pk %}">{{ cartaocredito.numero }}</a></td>
+                                <td><a href="{% url 'financas:cartaocredito_update' pk=cartaocredito.pk %}">{{ cartaocredito.nome }}</a></td>
+                                <td><a class="btn btn-warning btn-xs" href="{% url 'financas:cartaocredito_update' pk=cartaocredito.pk %}">Editar</a>
+                                    <a class="btn btn-danger btn-xs"  href="{% url 'financas:cartaocredito_delete' pk=cartaocredito.pk %}" >Excluir</a></td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <li>Nenhum Cartão de Crédito Cadastrado</li>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>  
+            </div>
+        </div> <!-- /#list -->
+
+        <!--<div id="bottom" class="row">
+        <div class="col-md-12">
+        <ul class="pagination">
+        <li class="disabled"><a>&lt; Anterior</a></li>
+        <li class="disabled"><a>1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li class="next"><a href="#" rel="next">Próximo &gt;</a></li>
+        </ul><!-- /.pagination -->
+        <!--</div>-->
+        <!--</div> --><!-- /#bottom -->
+    </div> <!-- /#main -->  
 {% endblock %}
