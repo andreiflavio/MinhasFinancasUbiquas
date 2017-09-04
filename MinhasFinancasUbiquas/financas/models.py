@@ -46,10 +46,12 @@ class CartaoCredito(models.Model):
     Cadastro que visa facilitar o controle sobre despesas de cartão de crédito
     """
     nome = models.CharField("Descrição", max_length = 80)
-    numero = models.CharField("Número do Cartão de Crédito", max_length = 80)
-    observacao = models.TextField("Observação", default=" ", blank=True)
+    bandeira = models.IntegerField("Status", choices = BANDEIRAS_CHOICES, default="1", null=False, blank=True) 
+    valor_limite = models.DecimalField("Limite", max_digits=19, decimal_places=10, default=0)
     dia_fechamento_fatura = models.IntegerField("Dia de fechamento da fatura", null=True, blank=True)
-    dia_vencimento_fatura = models.IntegerField("Dia de pagamento da fatura", null=True, blank=True)
+    dia_vencimento_fatura = models.IntegerField("Dia de vencimento da fatura", null=True, blank=True)
+    conta = models.ForeignKey(Conta, null=True, blank=True)
+    
 
     def get_absolute_url(self):
         return reverse('financas:cartaocredito_list')
@@ -60,7 +62,7 @@ class CartaoCredito(models.Model):
     class Meta:
         verbose_name = 'Cartão de Crédito'
         verbose_name_plural = 'Cartões de Crédito'
-        ordering = ["numero"]
+        ordering = ["nome"]
 
 class LancamentoFinanceiro(models.Model):
     """

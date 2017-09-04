@@ -5,3 +5,9 @@ TIPO_CHOICES = ((ARECEBER, 'A Receber'), (APAGAR, 'A Pagar'))
 NAOPAGO = 0
 PAGO = 1
 STATUS_CHOICES = ((NAOPAGO, 'Não Pago'), (PAGO, 'Pago'))
+
+
+VISA=1
+MASTERCARD=2
+OUTRA=99
+BANDEIRAS_CHOICES = ((VISA, 'Visa'), (MASTERCARD, 'Mastercard'), (OUTRA, 'Outra'))

@@ -9,26 +9,14 @@ from . models import Pessoa
 def index(request):
     return render(request, 'core/index.html')
 
-class PessoaListView(ListView):
+class CoreListView(ListView):
+    pass
 
-    model = Pessoa
-
-    def get_queryset(self, **kwargs):
-        return Pessoa.objects.all()
-
-class PessoaCreate(CreateView):
-    model = Pessoa
+class CoreCreateView(CreateView):
     template_name = 'core/form_crud.html'
-    fields = ['nome']
 
-class PessoaUpdate(UpdateView):
-    model = Pessoa
+class CoreUpdateView(UpdateView):
     template_name = 'core/form_crud.html'
-    fields = ['nome']
-    
 
-class PessoaDelete(DeleteView):
-    model = Pessoa
-    template_name = 'core/confirm_delete.html'
-    success_url = reverse_lazy('core:pessoa_list')
-    
+class CoreDeleteView(DeleteView):
+    template_name = 'core/confirm_delete.html'    

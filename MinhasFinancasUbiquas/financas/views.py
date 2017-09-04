@@ -5,68 +5,51 @@ from django.core.urlresolvers import reverse_lazy
 from django.forms import modelformset_factory, inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from .models import Classificacao, Conta, CartaoCredito, LancamentoFinanceiro
+from MinhasFinancasUbiquas.core.views import CoreCreateView, CoreUpdateView, CoreDeleteView, CoreListView
 
-class ClassificacaoListView(ListView):
+class ClassificacaoListView(CoreListView):
     model = Classificacao
 
-    def get_queryset(self, **kwargs):
-        return Classificacao.objects.all()
-
-class ClassificacaoCreate(CreateView):
-    model = Classificacao
-    template_name = 'core/form_crud.html'
+class ClassificacaoCreate(CoreCreateView):
+    model = Classificacao    
     fields = ['nome']
 
-class ClassificacaoUpdate(UpdateView):
-    model = Classificacao
-    template_name = 'core/form_crud.html'
+class ClassificacaoUpdate(CoreUpdateView):
+    model = Classificacao    
     fields = ['nome']
 
-class ClassificacaoDelete(DeleteView):
-    model = Classificacao
-    template_name = 'core/confirm_delete.html'
+class ClassificacaoDelete(CoreDeleteView):
+    model = Classificacao    
     success_url = reverse_lazy('financas:classificacao_list')
 
-class ContaListView(ListView):
+class ContaListView(CoreListView):
     model = Conta
 
-    def get_queryset(self, **kwargs):
-        return Conta.objects.all()
-
-class ContaCreate(CreateView):
-    model = Conta
-    template_name = 'core/form_crud.html'
+class ContaCreate(CoreCreateView):
+    model = Conta    
     fields = ['nome', 'ehContaBancaria']
 
-class ContaUpdate(UpdateView):
-    model = Conta
-    template_name = 'core/form_crud.html'
+class ContaUpdate(CoreUpdateView):
+    model = Conta    
     fields = ['nome', 'ehContaBancaria']
 
-class ContaDelete(DeleteView):
-    model = Conta
-    template_name = 'core/confirm_delete.html'
+class ContaDelete(CoreDeleteView):
+    model = Conta    
     success_url = reverse_lazy('financas:conta_list')
 
-class CartaoCreditoListView(ListView):
+class CartaoCreditoListView(CoreListView):
     model = CartaoCredito
 
-    def get_queryset(self, **kwargs):
-        return CartaoCredito.objects.all()
-
-class CartaoCreditoCreate(CreateView):
-    model = CartaoCredito
-    template_name = 'core/form_crud.html'
+class CartaoCreditoCreate(CoreCreateView):
+    model = CartaoCredito    
     fields = ['nome', 'numero', 'dia_fechamento_fatura','observacao']
 
-class CartaoCreditoUpdate(UpdateView):
-    model = CartaoCredito
-    template_name = 'core/form_crud.html'
+class CartaoCreditoUpdate(CoreUpdateView):
+    model = CartaoCredito    
     fields = ['nome', 'numero', 'dia_fechamento_fatura','observacao']
 
-class CartaoCreditoDelete(DeleteView):
+class CartaoCreditoDelete(CoreDeleteView):
     model = CartaoCredito
-    template_name = 'core/confirm_delete.html'
     success_url = reverse_lazy('financas:cartaocredito_list')
 
 class LancamentoFinanceiroListView(ListView):
@@ -76,17 +59,14 @@ class LancamentoFinanceiroListView(ListView):
         var_get_search = self.request.GET.get('search_box')
         return LancamentoFinanceiro.getLanctos(var_get_search)
 
-class LancamentoFinanceiroCreate(CreateView):
+class LancamentoFinanceiroCreate(CoreCreateView):
     model = LancamentoFinanceiro
-    template_name = 'core/form_crud.html'
     fields = ['descricao', 'data', 'tipo', 'valor', 'status', 'classificacao', 'conta']
 
-class LancamentoFinanceiroUpdate(UpdateView):
+class LancamentoFinanceiroUpdate(CoreUpdateView):
     model = LancamentoFinanceiro
-    template_name = 'core/form_crud.html'
     fields = ['descricao', 'data', 'tipo', 'valor', 'status',  'classificacao', 'conta']
 
-class LancamentoFinanceiroDelete(DeleteView):
+class LancamentoFinanceiroDelete(CoreDeleteView):    
     model = LancamentoFinanceiro
-    template_name = 'core/confirm_delete.html'
     success_url = reverse_lazy('financas:lancamentofinanceiro_list')
