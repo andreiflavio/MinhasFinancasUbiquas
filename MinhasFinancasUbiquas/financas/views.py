@@ -6,6 +6,7 @@ from django.forms import modelformset_factory, inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from .models import Classificacao, Conta, CartaoCredito, LancamentoFinanceiro
 from MinhasFinancasUbiquas.core.views import CoreCreateView, CoreUpdateView, CoreDeleteView, CoreListView
+from .forms import LancamentoFinanceiroForm
 
 class ClassificacaoListView(CoreListView):
     model = Classificacao
@@ -52,7 +53,7 @@ class CartaoCreditoDelete(CoreDeleteView):
     model = CartaoCredito
     success_url = reverse_lazy('financas:cartaocredito_list')
 
-class LancamentoFinanceiroListView(ListView):
+class LancamentoFinanceiroListView(CoreListView):
     model = LancamentoFinanceiro
 
     def get_queryset(self, **kwargs):           
@@ -61,11 +62,11 @@ class LancamentoFinanceiroListView(ListView):
 
 class LancamentoFinanceiroCreate(CoreCreateView):
     model = LancamentoFinanceiro
-    fields = ['descricao', 'data', 'tipo', 'valor', 'status', 'classificacao', 'conta']
+    form_class = LancamentoFinanceiroForm
 
 class LancamentoFinanceiroUpdate(CoreUpdateView):
     model = LancamentoFinanceiro
-    fields = ['descricao', 'data', 'tipo', 'valor', 'status',  'classificacao', 'conta']
+    form_class = LancamentoFinanceiroForm
 
 class LancamentoFinanceiroDelete(CoreDeleteView):    
     model = LancamentoFinanceiro

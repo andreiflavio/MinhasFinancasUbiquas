@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'MinhasFinancasUbiquas.accounts',
-    'bootstrap3',
+    'MinhasFinancasUbiquas.accounts',    
     'MinhasFinancasUbiquas.core',
     'MinhasFinancasUbiquas.financas',
 ]
