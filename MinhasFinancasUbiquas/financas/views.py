@@ -6,18 +6,18 @@ from django.forms import modelformset_factory, inlineformset_factory
 from django.http.response import HttpResponseRedirect
 from .models import Classificacao, Conta, CartaoCredito, LancamentoFinanceiro
 from MinhasFinancasUbiquas.core.views import CoreCreateView, CoreUpdateView, CoreDeleteView, CoreListView
-from .forms import LancamentoFinanceiroForm
+from .forms import LancamentoFinanceiroForm, ClassificacaoForm, ContaForm, CartaoCreditoForm
 
 class ClassificacaoListView(CoreListView):
     model = Classificacao
 
 class ClassificacaoCreate(CoreCreateView):
     model = Classificacao    
-    fields = ['nome']
+    form_class = ClassificacaoForm
 
 class ClassificacaoUpdate(CoreUpdateView):
     model = Classificacao    
-    fields = ['nome']
+    form_class = ClassificacaoForm
 
 class ClassificacaoDelete(CoreDeleteView):
     model = Classificacao    
@@ -28,11 +28,11 @@ class ContaListView(CoreListView):
 
 class ContaCreate(CoreCreateView):
     model = Conta    
-    fields = ['nome', 'ehContaBancaria']
+    form_class = ContaForm
 
 class ContaUpdate(CoreUpdateView):
     model = Conta    
-    fields = ['nome', 'ehContaBancaria']
+    form_class = ContaForm
 
 class ContaDelete(CoreDeleteView):
     model = Conta    
@@ -43,11 +43,11 @@ class CartaoCreditoListView(CoreListView):
 
 class CartaoCreditoCreate(CoreCreateView):
     model = CartaoCredito    
-    fields = ['nome', 'numero', 'dia_fechamento_fatura','observacao']
+    form_class = CartaoCreditoForm
 
 class CartaoCreditoUpdate(CoreUpdateView):
     model = CartaoCredito    
-    fields = ['nome', 'numero', 'dia_fechamento_fatura','observacao']
+    form_class = CartaoCreditoForm
 
 class CartaoCreditoDelete(CoreDeleteView):
     model = CartaoCredito
