@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'MinhasFinancasUbiquas.accounts',    
     'MinhasFinancasUbiquas.core',
     'MinhasFinancasUbiquas.financas',
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'MinhasFinancasUbiquas.urls'
@@ -137,6 +139,8 @@ LOGOUT_URL = 'accounts:logout'
 AUTH_USER_MODEL = 'accounts.User'
 
 DEFAULT_CHARSET = 'utf-8'
+
+INTERNAL_IPS = ('127.0.0.1')
 
 try:
     from MinhasFinancasUbiquas.local_settings import *

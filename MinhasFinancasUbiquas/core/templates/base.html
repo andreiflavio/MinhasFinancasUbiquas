@@ -71,7 +71,18 @@
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
                     <li><a href="{% url 'core:index' %}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
-                    <li><a href="{% url 'financas:lancamentofinanceiro_list' %}"><i class="fa fa-usd"></i> Lançamentos</a></li>  
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-usd"></i> Lançamentos <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Despesas</a></li>
+                            <li><a href="#">Receitas</a></li>
+                        </ul>
+                    </li>  
+                        
+                    <li><a href="{% url 'financas:lancamentofinanceiro_list' %}"><i class="fa fa-usd"></i> Lançamentos</a></li> 
                     <li><a href="{% url 'financas:conta_list' %}"><i class="fa fa-university"></i> Contas</a></li> 
                     <li><a href="{% url 'financas:classificacao_list' %}"><i class="fa fa-flag" title="Cadastro das classificações do lançamento financeiro."></i> Classificação</a></li>
                     <li><a href="{% url 'financas:cartaocredito_list' %}"><i class="fa fa-credit-card"></i> Cartões de crédito</a></li>                    
@@ -91,6 +102,8 @@
 
     <!-- jQuery -->
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
